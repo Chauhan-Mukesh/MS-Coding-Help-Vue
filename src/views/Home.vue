@@ -12,7 +12,7 @@
       </div>
     </section>
 
-    <div class="columns is-multiline mx-2">
+    <div class="columns is-multiline mx-5 mb-6">
       <div class="column is-12">
       </div>
       <PostBox v-for="post in latestPosts"

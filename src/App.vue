@@ -16,8 +16,20 @@
       </div>
       <div class="navbar-menu" id="navbar-menu" v-bind:class="{'is-active': showMobileMenu}">
         <div class="navbar-start">
-          <router-link to="/summer" class="navbar-item"><p class="is-family-code">Python</p></router-link>
-          <router-link to="/winter" class="navbar-item"><p class="is-family-code">C-Programming</p></router-link>
+          <div class="navbar-item has-dropdown is-hoverable is-family-code">
+            <a class="navbar-link">
+              Programming Languages
+            </a>
+            <div class="navbar-dropdown">
+              <router-link class="navbar-item nav-item-color"
+                           v-for="category in categories"
+                           v-bind:key="category.id"
+                           :to="category.get_absolute_url"
+              >
+                {{ category.name }}
+              </router-link>
+            </div>
+          </div>
           <router-link to="/about" class="navbar-item"><p class="is-family-code">About Me</p></router-link>
           <router-link to="/contact-me" class="navbar-item"><p class="is-family-code">Contact US</p></router-link>
           <div class="navbar-item">
@@ -27,7 +39,7 @@
           <div class="navbar-item">
             <div class="buttons">
 
-              <router-link to="/log-in" class="button is-light">Log in</router-link>
+              <router-link to="/log-in" class="button is-light is-family-code">Log in</router-link>
             </div>
           </div>
         </div>
@@ -53,6 +65,7 @@ export default {
   data() {
     return {
       showMobileMenu: false,
+      categories: {}
     }
   },
   mounted() {
@@ -64,6 +77,7 @@ export default {
           .get('/api/v1/category/')
           .then(response => {
             this.categories = response.data
+            console.log(this.categories)
           })
           .catch(error => {
             console.log(error)
@@ -100,5 +114,7 @@ export default {
 
 .nav-item-color:hover {
   background-color: dimgray !important;
+  color: white !important;
+  font-weight: bolder !important;
 }
 </style>
