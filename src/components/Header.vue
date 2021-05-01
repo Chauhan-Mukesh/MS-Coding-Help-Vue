@@ -1,8 +1,9 @@
 <template>
-  <div class="page-header">
-    <section class="hero  mb-6 mx-0">
+  <div class="page-header is-family-code">
+    <section class="hero mb-2 mx-0">
       <figure class="image">
         <img id="header" class="mt-2" src="../assets/w3.jpg">
+
       </figure>
     </section>
   </div>
@@ -20,4 +21,5 @@ export default {
 	height: 100vh;
 	background-position: center;
 }
+
 </style>

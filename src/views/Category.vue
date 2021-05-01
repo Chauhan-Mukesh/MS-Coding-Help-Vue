@@ -1,13 +1,12 @@
 <template>
-  hi
-  <div class="page-category">
+  <div class="page-category mt-4 is-family-code">
     <section class="section">
       <div class="hero is-dark">
         <div class="hero-body has-text-centered">
-          <p class="title mb-6 is-size-1-desktop is-family-code">
+          <p class="title mb-6 is-size-1-desktop">
             What do you want to learn?
           </p>
-          <p class="subtitle is-size-1-touch is-capitalized is-family-code">
+          <p class="subtitle is-capitalized">
             Learn everyday something new
           </p>
         </div>
@@ -30,7 +29,8 @@
               <div class="card-content">
                 <div class="media">
                   <div class="media-content">
-                    <p class="title is-4 is-family-code">{{ subcategory.name }}</p>
+                    <router-link :to="subcategory.get_absolute_url">
+                    <p class="title is-4 has-text-dark link">{{ subcategory.name }}</p></router-link>
                   </div>
                 </div>
               </div>
@@ -44,7 +44,6 @@
 
 <script>
 import axios from "axios";
-import PostBox from "@/components/PostBox";
 
 export default {
   name: "Category",
@@ -54,7 +53,6 @@ export default {
     }
   },
   components: {
-    PostBox
   },
   mounted() {
     document.title = 'Category | MS Coding Help'
@@ -73,7 +71,6 @@ export default {
           .get(`/api/v1/category/${category_slug}/`)
           .then(response => {
             this.sub_categories = response.data
-            console.log(this.sub_categories)
           })
           .catch(error => {
             console.log(error)
@@ -84,14 +81,5 @@ export default {
 </script>
 
 <style scoped>
-.img:hover {
-  width: 400px;
-  height: 200px;
-  border: 2px solid #fff;
-  box-shadow: 10px 10px 5px #ccc;
-  -moz-box-shadow: 10px 10px 5px #ccc;
-  -webkit-box-shadow: 10px 10px 5px #ccc;
-}
-
 
 </style>

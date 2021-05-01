@@ -1,7 +1,17 @@
-import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
+
+import store from '../store'
+
+import MyAccount from '../views/MyAccount.vue'
 import Home from '../views/Home.vue'
 import ContactMe from '../views/ContactMe.vue'
-import Category from "@/views/Category";
+import Category from "@/views/Category"
+import SubCategory from "@/views/SubCategory";
+import Post from "@/views/Post";
+import LogIn from "@/views/LogIn";
+import SignUp from "@/views/SignUp";
+import Search from "@/views/Search";
+
 
 const routes = [
   {
@@ -22,10 +32,43 @@ const routes = [
     name: 'ContactMe',
     component: ContactMe
   },
-      {
+  {
     path: '/:category_slug',
     name: 'Category',
     component: Category
+  },
+  {
+    path: '/:category_slug/:sub_category_slug',
+    name: 'SubCategory',
+    component: SubCategory
+  },
+  {
+    path: '/:category_slug/:sub_category_slug/:post_slug',
+    name: 'Post',
+    component: Post
+  },
+  {
+    path: '/sign-in',
+    name: 'LogIn',
+    component: LogIn
+  },
+  {
+    path: '/sign-up',
+    name: 'SignUp',
+    component: SignUp
+  },
+  {
+    path: '/my-account',
+    name: 'MyAccount',
+    component: MyAccount,
+    meta: {
+      requireLogin: true
+    }
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search,
   }
 ]
 
@@ -34,5 +77,12 @@ const router = createRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requireLogin) && !store.state.isAuthenticated) {
+    next({name: 'LogIn', query: {to: to.path}});
+  } else {
+    next()
+  }
+})
 
 export default router

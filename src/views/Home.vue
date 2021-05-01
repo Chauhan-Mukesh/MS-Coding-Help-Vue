@@ -1,25 +1,39 @@
 <template>
-  <div class="home">
+  <div class="home is-family-code">
     <Header/>
     <section class="section">
       <div class="hero-body has-text-centered">
-        <p class="title mb-6 is-family-code">
+        <p class="title mb-6 is-size-1-desktop">
           Welcome to MS Coding Help
         </p>
-        <p class="subtitle is-family-code">
+        <p class="subtitle is-capitalized">
           Feel Free To Ask
         </p>
       </div>
-    </section>
-
-    <div class="columns is-multiline mx-5 mb-6">
-      <div class="column is-12">
+      <div class="container has-text-centered">
+        <p>We have created a fictional band website. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+          ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
+          eu
+          fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+          mollit
+          anim id est
+          laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+          enim
+          ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       </div>
-      <PostBox v-for="post in latestPosts"
-        v-bind:key="post.id"
-        v-bind:post="post" />
-    </div>
+    </section>
+    <section class="section">
+      <div class="columns is-multiline mx-5 mb-6">
+
+        <PostBox v-for="post in latestPosts"
+                 v-bind:key="post.id"
+                 v-bind:post="post"/>
+      </div>
+    </section>
   </div>
+
 </template>
 
 <script>

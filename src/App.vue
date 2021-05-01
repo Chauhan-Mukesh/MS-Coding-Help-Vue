@@ -2,10 +2,10 @@
   <div id="wrapper">
     <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="./public/fav.svg">
-          <img src="../public/fav.svg" alt="MS Coding Help" width="112" height="28">
-        </a>
-        <router-link to="/" class="navbar-item"><p class="is-family-code"><strong>MS Coding Help</strong></p>
+        <router-link class="navbar-item" to="/">
+          <img src="./assets/fav.svg" alt="MS Coding Help" width="80" height="28">
+        </router-link>
+        <router-link to="/" class="navbar-item"><p class="is-family-code is-size-5"><strong>MS Coding Help</strong></p>
         </router-link>
         <a class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu"
            @click="showMobileMenu = !showMobileMenu">
@@ -37,9 +37,32 @@
         </div>
         <div class="navbar-end">
           <div class="navbar-item">
+            <form method="get" action="/search">
+              <div class="field has-addons">
+                <div class="control">
+                  <input type="text" class="input" placeholder="What are you looking for?" name="query">
+                </div>
+
+                <div class="control">
+                  <button class="button is-light">
+                      <span class="icon">
+                      <i class="fas fa-search"></i>
+                      </span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="navbar-item">
             <div class="buttons">
 
-              <router-link to="/log-in" class="button is-light is-family-code">Log in</router-link>
+              <template v-if="$store.state.isAuthenticated">
+                <router-link to="/my-account" class="button is-danger">My account</router-link>
+              </template>
+
+              <template v-else>
+                <router-link to="/sign-in" class="button is-light">Log in</router-link>
+              </template>
             </div>
           </div>
         </div>
@@ -49,9 +72,9 @@
       <router-view/>
     </section>
 
-    <footer class="footer has-background-grey">
+    <footer class="footer has-background-light">
 
-        <p class="has-text-centered is-family-code"><strong> &copy Copyright 2021</strong></p>
+      <p class="has-text-centered is-family-code"><strong> &copy Copyright 2021</strong></p>
 
     </footer>
 
@@ -68,6 +91,18 @@ export default {
       categories: {}
     }
   },
+  beforeCreate() {
+    this.$store.commit('initializeStore')
+
+    const token = this.$store.state.token
+
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = "Token " + token
+    } else {
+      axios.defaults.headers.common['Authorization'] = ""
+    }
+
+  },
   mounted() {
     this.getCategories()
   },
@@ -77,7 +112,6 @@ export default {
           .get('/api/v1/category/')
           .then(response => {
             this.categories = response.data
-            console.log(this.categories)
           })
           .catch(error => {
             console.log(error)
@@ -116,5 +150,28 @@ export default {
   background-color: dimgray !important;
   color: white !important;
   font-weight: bolder !important;
+}
+
+.link:hover {
+  color: darkblue !important;
+  -webkit-transform: scale(1.2);
+}
+
+.link2:hover {
+  color: darkred !important;
+  -webkit-transform: scale(1.2);
+}
+
+.img:hover {
+  height: 200px;
+  border: 2px solid #fff;
+  box-shadow: 10px 10px 5px #ccc;
+  -moz-box-shadow: 10px 10px 5px #ccc;
+  -webkit-box-shadow: 10px 10px 5px #ccc;
+}
+
+
+footer {
+  padding: 1rem 0rem 1rem !important;
 }
 </style>
