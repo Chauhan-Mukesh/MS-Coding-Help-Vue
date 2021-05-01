@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     async performSearch() {
-
+      this.$store.commit('setIsLoading', true)
       await axios
           .post('/api/v1/posts/search/', {'query': this.query})
           .then(response => {
@@ -53,7 +53,7 @@ export default {
           .catch(error => {
             console.log(error)
           })
-
+      this.$store.commit('setIsLoading', false)
     }
   }
 }

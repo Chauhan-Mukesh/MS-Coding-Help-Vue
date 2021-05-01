@@ -97,10 +97,9 @@
 import axios from "axios";
 import Search from "@/views/Search";
 import {toast} from "bulma-toast";
-
+import {mapGetters, mapActions} from 'vuex'
 export default {
   name: "Post",
-
   data() {
     return {
       postDetail: {},
@@ -128,7 +127,6 @@ export default {
     async getPostDetails() {
       const sub_category_slug = this.$route.params.sub_category_slug
       const post_slug = this.$route.params.post_slug
-
       await axios
           .get(`/api/v1/post/${sub_category_slug}/${post_slug}`)
           .then(response => {
@@ -189,7 +187,6 @@ export default {
           .get('/api/v1/get-comments/')
           .then(response => {
             this.postComments = response.data
-            console.log(this.postComments)
           })
           .catch(error => {
             console.log(error)
